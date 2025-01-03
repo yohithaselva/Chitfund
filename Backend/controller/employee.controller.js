@@ -25,11 +25,12 @@ export const addEmployee = async (req, res) => {
   
 
 // Edit Employee
+// Backend Controller (employee.controller.js)
 export const editEmployee = async (req, res) => {
-  const { id } = req.params; // Use `emp_id` to identify the employee
+  const { id } = req.params;
   try {
-    const updatedEmployee = await Employee.findOneAndUpdate(
-      { emp_id: id }, // Correct filter to use emp_id
+    const updatedEmployee = await Employee.findByIdAndUpdate(
+      id, // Use _id instead of emp_id
       { $set: req.body },
       { new: true }
     );
@@ -40,13 +41,11 @@ export const editEmployee = async (req, res) => {
   }
 };
 
-// Delete Employee
 export const deleteEmployee = async (req, res) => {
   const { id } = req.params;
-  console.log(id); 
   try {
-    const deletedEmployee = await Employee.findOneAndDelete({ emp_id: id });
-
+    const deletedEmployee = await Employee.findByIdAndDelete(id); // Use _id instead of emp_id
+    
     if (!deletedEmployee) return res.status(404).json({ message: 'Employee not found' });
     res.status(200).json({ message: 'Employee deleted successfully' });
   } catch (error) {

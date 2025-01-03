@@ -45,8 +45,8 @@ const EmployeeSchema = new mongoose.Schema(
     },
     role: {  
       type: String,
-      enum: ['admin', 'manager', 'employee'], 
-      default: 'employee', 
+      enum: ['Admin', 'Manager', 'Employee'], 
+      default: 'Employee', 
     },
     photo: {
       type: String, // Expect a string path or URL
